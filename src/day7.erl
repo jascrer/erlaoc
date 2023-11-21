@@ -1,9 +1,9 @@
--module(day7_puzzle1).
+-module(day7).
 
--export([main/1, read_stream/1, list_files_and_dirs/1, find_files_in_dirs/1, get_folders_sizes/1]).
+-export([puzzle1/1, puzzle2/1]).
 
 
-main(FileName) ->
+puzzle1(FileName) ->
     History = read_stream(FileName),
     ListFilesAndDirs = list_files_and_dirs(History),
     FilesInDirs = find_files_in_dirs(ListFilesAndDirs),
@@ -70,3 +70,15 @@ get_folder_size({FolderName, Files}) ->
 
 get_folders_sizes(DirsAndFiles) ->
     lists:map(fun get_folder_size/1, DirsAndFiles).
+
+puzzle2(FileName)->
+    History = read_stream(FileName),
+    ListFilesAndDirs = list_files_and_dirs(History),
+    FilesInDirs = find_files_in_dirs(ListFilesAndDirs),
+    FolderSizes = get_folders_sizes(FilesInDirs),
+    [{_, UsedSpace}] = lists:filter(fun({["/"], _}) -> true;
+                                    (_) -> false end, FolderSizes),
+    RequiredSpace = 30000000 - (70000000 - UsedSpace),
+    DirWithRequiredSpace = lists:filter(fun({_, Size}) -> Size >= RequiredSpace end, FolderSizes),
+    [{_, Result} | _] = lists:sort(fun({_, SizeA}, {_, SizeB}) -> SizeA < SizeB end, DirWithRequiredSpace),
+    Result.

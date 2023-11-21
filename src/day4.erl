@@ -1,11 +1,11 @@
--module(day4_puzzle1).
+-module(day4).
 
--export([main/1, read_pairs/1]).
+-export([puzzle1/1, puzzle2/1]).
 
-main(FileName) ->
+puzzle1(FileName) ->
     Pairs = read_pairs(FileName),
     lists:foldl(fun(Pair, Sum) ->
-            check_pair(Pair) + Sum
+            p1_check_pair(Pair) + Sum
         end, 0, Pairs).
 
 read_pairs(FileName) ->
@@ -27,6 +27,16 @@ format_pairs(Lowest,Greatest) ->
     {GInteger, _} = string:to_integer(Greatest),
     {LInteger, GInteger}.
 
-check_pair([{LElf1, GElf1},{LElf2, GElf2}]) when (LElf1 =< LElf2) and (GElf1 >= GElf2) -> 1;
-check_pair([{LElf1, GElf1},{LElf2, GElf2}]) when (LElf2 =< LElf1) and (GElf2 >= GElf1) -> 1;
-check_pair(_) -> 0.
+p1_check_pair([{LElf1, GElf1},{LElf2, GElf2}]) when (LElf1 =< LElf2) and (GElf1 >= GElf2) -> 1;
+p1_check_pair([{LElf1, GElf1},{LElf2, GElf2}]) when (LElf2 =< LElf1) and (GElf2 >= GElf1) -> 1;
+p1_check_pair(_) -> 0.
+
+puzzle2(FileName) ->
+    Pairs = read_pairs(FileName),
+    lists:foldl(fun(Pair, Sum) ->
+            p2_check_pair(Pair) + Sum
+        end, 0, Pairs).
+
+p2_check_pair([{_LElf1, GElf1},{LElf2, _GElf2}]) when (GElf1 < LElf2) -> 0;
+p2_check_pair([{LElf1, _GElf1},{_LElf2, GElf2}]) when (GElf2 < LElf1) -> 0;
+p2_check_pair(_) -> 1.

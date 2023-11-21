@@ -1,8 +1,8 @@
--module(day3_puzzle1).
+-module(day3).
 
--export([main/1, calculate_points/1]).
+-export([puzzle1/1, puzzle2/1]).
 
-main(FileName) ->
+puzzle1(FileName) ->
     Rucksacks = read_rucksacks(FileName),
     RepeatedItems = lists:map(
         fun({C1, C2}) ->
@@ -60,4 +60,43 @@ calculate_point_may([L | _])->
             string:str(Mays, [L])  + 26;
         true ->
             0
+    end.
+
+puzzle2(FileName) ->
+    Rucksacks = p2_read_rucksacks(FileName),
+    RepeatedItems = lists:map(
+        fun({C1, C2, C3}) ->
+            p2_search_repeated(C1, C2, C3)
+        end, Rucksacks),
+    calculate_points(RepeatedItems).
+
+p2_read_rucksacks(FileName) ->
+    {ok, RawInput} = file:read_file(FileName),
+    RawData = binary:bin_to_list(RawInput),
+    RucksacksData = string:split(RawData, "\n", all),
+    Rucksacks = group_rucksacks(RucksacksData),
+    Rucksacks.
+
+group_rucksacks(Rucksacks)->
+    group_rucksacks1(Rucksacks, []).
+
+group_rucksacks1([], Groups) ->
+    Groups;
+group_rucksacks1([R1, R2, R3 | Rest], Groups) ->
+    group_rucksacks1(Rest, Groups ++ [{R1, R2, R3}]).
+
+p2_search_repeated(C1, C2, C3)->
+    p2_search_repeated1(C1, C2, C3, []).
+
+p2_search_repeated1("", _, _, RC) ->
+    RC;
+p2_search_repeated1([E1 | Rest], C2, C3, RC) ->
+    InCompartment2 = lists:member(E1, C2),
+    InCompartment3 = lists:member(E1, C3),
+    NotInResult = not lists:member(E1, RC),
+    if
+        InCompartment2 and NotInResult and InCompartment3 ->
+            p2_search_repeated1(Rest, C2, C3, RC ++ [E1]);
+        true ->
+            p2_search_repeated1(Rest, C2, C3, RC)
     end.

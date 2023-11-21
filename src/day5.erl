@@ -1,8 +1,8 @@
--module(day5_puzzle1).
+-module(day5).
 
--export([main/1, read_stacks/1, extract_tuples/2]).
+-export([puzzle1/1, puzzle2/1]).
 
-main(FileName) ->
+puzzle1(FileName) ->
     {Tuples, Moves} = read_stacks(FileName),
     MovedTuples = move_crates(Tuples, Moves),
     lists:sort(
@@ -103,3 +103,34 @@ extract_tuples([{Index, List} | Rest], {Stack1, Stack2}, Tuple1, _Tuple2, Others
 extract_tuples([{Index, List} | Rest], {Stack1, Stack2}, Tuple1, Tuple2, Others) ->
     extract_tuples(Rest, {Stack1, Stack2}, Tuple1, Tuple2, Others ++ [{Index, List}]).
 
+puzzle2(FileName) ->
+    {Tuples, Moves} = read_stacks(FileName),
+    MovedTuples = p2_move_crates(Tuples, Moves),
+    lists:sort(
+        fun({Index1, _}, {Index2, _}) ->
+            Index1 =< Index2
+        end, MovedTuples).
+
+p2_move_crates(Tuples, []) ->
+    Tuples;
+p2_move_crates(Tuples, [{Quantity, Stack1, Stack2} | Moves]) ->
+    ResultTuple = p2_move_crate(Tuples, Quantity, Stack1, Stack2),
+    p2_move_crates(ResultTuple, Moves).
+
+p2_move_crate(Tuples, 0, _, _) ->
+    Tuples;
+p2_move_crate(Tuples, Quantity, Stack1, Stack2) ->
+    {Tuple1, Tuple2, OtherTuples} = extract_tuples(Tuples, {Stack1, Stack2}),
+    [Crate, TupleFrom] = p2_move_crate_from(Tuple1, Quantity),
+    TupleTo = p2_move_crate_to(Tuple2, Crate),
+    OtherTuples ++ [TupleFrom] ++ [TupleTo].
+
+p2_move_crate_from(Tuple, Quantity) ->
+    p2_move_crate_from(Tuple, Quantity, []).
+p2_move_crate_from(Tuple, 0, Acc)->
+    [Acc, Tuple];
+p2_move_crate_from({Index, [Crate | Rest]}, Quantity, Acc) ->
+    p2_move_crate_from({Index, Rest}, Quantity - 1, Acc ++ [Crate]).
+
+p2_move_crate_to({Index, Crates}, Crate) ->
+    {Index, Crate ++ Crates}.

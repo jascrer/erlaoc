@@ -1,4 +1,4 @@
--module(day9_puzzle2).
+-module(d9p2).
 -import(day9_puzzle1, [read_inst/1, move_head/2, euclidean/2]).
 -export([main/1]).
 
