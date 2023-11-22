@@ -1,8 +1,12 @@
--module(d9p1).
+-module(day9).
 
--export([main/1, read_inst/1, move_head/2, move_tail/3, euclidean/2]).
+-export([puzzle1/1, read_inst/1, move_head/2, move_tail/3, euclidean/2]).
 
-main(FileName) ->
+%%==============================================================================
+%% Day 9 Puzzle 1
+%%==============================================================================
+-spec puzzle1(string()) -> integer().
+puzzle1(FileName) ->
     Instr = read_inst(FileName),
     simulate(Instr).
 

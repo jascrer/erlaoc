@@ -24,7 +24,6 @@ puzzle1(FileName) ->
     Snacks = read_file(FileName),
     ElfTotals = lists:map(fun return_elf_totals/1, Snacks),
     CaloriesTotal = lists:max(ElfTotals),
-    io:format("The elf carries ~p calories\n", [CaloriesTotal]),
     CaloriesTotal.
 
 order_list(List) ->
