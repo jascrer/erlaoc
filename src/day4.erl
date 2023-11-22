@@ -2,6 +2,10 @@
 
 -export([puzzle1/1, puzzle2/1]).
 
+%%==============================================================================
+%% Day 4 Puzzle 1
+%%==============================================================================
+-spec puzzle1(string()) -> integer().
 puzzle1(FileName) ->
     Pairs = read_pairs(FileName),
     lists:foldl(fun(Pair, Sum) ->
@@ -31,6 +35,10 @@ p1_check_pair([{LElf1, GElf1},{LElf2, GElf2}]) when (LElf1 =< LElf2) and (GElf1 
 p1_check_pair([{LElf1, GElf1},{LElf2, GElf2}]) when (LElf2 =< LElf1) and (GElf2 >= GElf1) -> 1;
 p1_check_pair(_) -> 0.
 
+%%==============================================================================
+%% Day 4 Puzzle 2
+%%==============================================================================
+-spec puzzle2(string()) -> integer().
 puzzle2(FileName) ->
     Pairs = read_pairs(FileName),
     lists:foldl(fun(Pair, Sum) ->

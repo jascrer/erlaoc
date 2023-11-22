@@ -1,6 +1,10 @@
 -module(day8).
 -export([puzzle1/1, puzzle2/1]).
 
+%%==============================================================================
+%% Day 8 Puzzle 1
+%%==============================================================================
+-spec puzzle1(string()) -> integer().
 puzzle1(FileName) ->
     Board = read_stream(FileName),
     VisBoard = eval_positions(Board),
@@ -112,6 +116,10 @@ bot_vis(List, ActualList, Row, Col, Nav) ->
             bot_vis(List, ActualList, Row, Col, Nav + 1)
     end.
 
+%%==============================================================================
+%% Day 8 Puzzle 2
+%%==============================================================================
+-spec puzzle2(string()) -> {integer(), integer()}.
 puzzle2(FileName) ->
     Board = read_stream(FileName),
     VisBoard = p2_eval_positions(Board),

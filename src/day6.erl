@@ -2,6 +2,10 @@
 
 -export([puzzle1/1, puzzle2/1]).
 
+%%==============================================================================
+%% Day 6 Puzzle 1
+%%==============================================================================
+-spec puzzle1(string()) -> {string(), integer()}.
 puzzle1(FileName) ->
     Stream = read_stream(FileName),
     start_of_packet(Stream).
@@ -32,6 +36,10 @@ duplicates([E1, E2, E3, E4]) ->
     Member4 = lists:member(E4, [E1, E2, E3]),
     Member1 or Member2 or Member3 or Member4.
 
+%%==============================================================================
+%% Day 6 Puzzle 2
+%%==============================================================================
+-spec puzzle2(string()) -> {string(), integer()}.
 puzzle2(FileName) ->
     Stream = read_stream(FileName),
     p2_start_of_packet(Stream).

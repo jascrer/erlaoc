@@ -2,6 +2,10 @@
 
 -export([puzzle1/1, puzzle2/1]).
 
+%%==============================================================================
+%% Day 3 Puzzle 1
+%%==============================================================================
+-spec puzzle1(string()) -> integer().
 puzzle1(FileName) ->
     Rucksacks = read_rucksacks(FileName),
     RepeatedItems = lists:map(
@@ -62,6 +66,10 @@ calculate_point_may([L | _])->
             0
     end.
 
+%%==============================================================================
+%% Day 3 Puzzle 2
+%%==============================================================================
+-spec puzzle2(string()) -> integer().
 puzzle2(FileName) ->
     Rucksacks = p2_read_rucksacks(FileName),
     RepeatedItems = lists:map(

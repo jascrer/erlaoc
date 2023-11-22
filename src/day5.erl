@@ -2,6 +2,10 @@
 
 -export([puzzle1/1, puzzle2/1]).
 
+%%==============================================================================
+%% Day 5 Puzzle 1
+%%==============================================================================
+-spec puzzle1(string()) -> list().
 puzzle1(FileName) ->
     {Tuples, Moves} = read_stacks(FileName),
     MovedTuples = move_crates(Tuples, Moves),
@@ -103,6 +107,10 @@ extract_tuples([{Index, List} | Rest], {Stack1, Stack2}, Tuple1, _Tuple2, Others
 extract_tuples([{Index, List} | Rest], {Stack1, Stack2}, Tuple1, Tuple2, Others) ->
     extract_tuples(Rest, {Stack1, Stack2}, Tuple1, Tuple2, Others ++ [{Index, List}]).
 
+%%==============================================================================
+%% Day 5 Puzzle 2
+%%==============================================================================
+-spec puzzle2(string()) -> list().
 puzzle2(FileName) ->
     {Tuples, Moves} = read_stacks(FileName),
     MovedTuples = p2_move_crates(Tuples, Moves),

@@ -2,7 +2,10 @@
 
 -export([puzzle1/1, puzzle2/1]).
 
-
+%%==============================================================================
+%% Day 7 Puzzle 1
+%%==============================================================================
+-spec puzzle1(string()) -> integer().
 puzzle1(FileName) ->
     History = read_stream(FileName),
     ListFilesAndDirs = list_files_and_dirs(History),
@@ -71,6 +74,10 @@ get_folder_size({FolderName, Files}) ->
 get_folders_sizes(DirsAndFiles) ->
     lists:map(fun get_folder_size/1, DirsAndFiles).
 
+%%==============================================================================
+%% Day 7 Puzzle 2
+%%==============================================================================
+-spec puzzle2(string()) -> integer().
 puzzle2(FileName)->
     History = read_stream(FileName),
     ListFilesAndDirs = list_files_and_dirs(History),
