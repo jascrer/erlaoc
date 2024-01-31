@@ -52,4 +52,6 @@ day8_test() ->
 
 day9_test() ->
     %% Puzzle 1
-    ?assertEqual(13, day9:puzzle1("test/test_files/day9_test.txt")).
+    ?assertEqual(13, day9:puzzle1("test/test_files/day9_test.txt")),
+    %% Puzzle 2
+    ?assertEqual(36, day9:puzzle2("test/test_files/day9_test2.txt")).
